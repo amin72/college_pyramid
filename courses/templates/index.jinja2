@@ -1,0 +1,62 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+
+<div class="row">
+
+    {% if request.authenticated_userid %}
+        <div class="col-md-12">
+            <h3>سلام {{ request.user.firstname }} {{ request.user.lastname }}</h3>
+            <p>
+                به سیستم انتخاب واحد دانشگاه خوش آمدید. از منوی زیر می توانید عملیات مورد نظر خود را انجام دهید.
+            </p>
+            <a href="{{ request.route_url('auth', action='out') }}">خروج</a>
+        </div>
+
+        <div>
+            <ul>
+                <li>
+                    <a href="{{ request.route_url('student_information') }}">
+                        مشاهده اطلاعات دانشجو
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ request.route_url('select_courses') }}">
+                        انتخاب واحد
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ request.route_url('courses') }}">
+                        مشاهده دروس انتخاب شده
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    {% else %}
+        <div class="col-md-3 col-sm-2"></div>
+
+        <div class="col-md-6 col-sm-8">
+            سلام مهمان گرامی. برای ورود به سایت نام کاربری و رمز عبور خود را وارد کنید.
+
+            <form action="{{ request.route_url('auth', action='in') }}" method="post">
+                <div class="form-group">
+                    <input type="text" name="username" class="form-control" placeholder="نام کابری">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control" placeholder="رمز عبور">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="ورود به سایت" class="btn btn-default">
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-3 col-sm-2"></div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "layout.jinja2" %}
+
+{% block title %}ویرایش اطلاعات دانشجو{% endblock %}
+
+{% block content %}
+
+{% if message %}
+    {{ message }}
+{% endif %}
+
+<div class="row">
+
+    <div class="col-md-3 col-sm-2"></div>
+
+    <div class="col-md-6 col-sm-8"">
+
+        <h4>ویرایش اطلاعات دانشجو</h4>
+        <hr>
+
+        <form action="{{ request.route_url('update_student_information') }}" method="post">
+            <div class="form-group">
+                <label class="form-control" for="firstname">نام</label>
+                <input class="form-control" type="text" name="firstname" id="firstname" maxlength="255" value="{{ student.user.firstname }}">
+            </div>
+            <div class="form-group">
+                <label class="form-control" for="lastname">نام خاوادگی</label>
+                <input class="form-control" type="text" name="lastname" id="lastname" maxlength="255" value="{{ student.user.lastname }}">
+            </div>
+            <div class="form-group">
+                <label class="form-control" for="address">آدرس</label>
+                <input class="form-control" type="text" name="address" id="address" maxlength="255" value="{{ student.user.address }}">
+            </div>
+            <div class="form-group">
+                <label class="form-control" for="phone">شماره تماس</label>
+                <input class="form-control" type="text" name="phone" id="phone" maxlength="11" value="{{ student.user.phone }}">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-info" name="button.submitted">
+                    ذخیره اطلاعات
+                </button>
+                <a class="btn btn-default" href="{{ request.route_url('home') }}">
+                    برگشت به خانه
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-3 col-sm-2"></div>
+
+</div>
+
+{% endblock %}
+

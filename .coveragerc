@@ -1,0 +1,3 @@
+[run]
+source = courses
+omit = courses/test*

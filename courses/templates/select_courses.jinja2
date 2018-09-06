@@ -1,0 +1,110 @@
+{% extends "layout.jinja2" %}
+
+{% block title %}انتخاب واحد{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+	{{ message }}
+{% endif %}
+
+{% if request.session %}
+	<h4>
+		*** {{ request.session.pop_flash()[0] }} ***
+	</h4>
+{% endif %}
+
+{% if selected_courses %}
+	<div class="row ">
+		<div class="col-md-12 col-sm-12">
+	    	<h4>واحدهای انتخاب شده</h4>
+	    	
+	    	<hr>
+			<table class="table" >
+				<thead>
+					<tr class="right">
+						<th>#</th>
+						<th>کد درس</th>
+						<th>نام کتاب</th>
+						<th>تعداد واحد</th>
+						<td>استاد</td>
+						<td>تاریخ امتحان</td>
+					</tr>
+				</thead>
+				<tbody>
+				    {% for course in selected_courses %}
+		    			<tr>
+		    				<td>
+		    					<a class="btn btn-warning btn-sm" href="{{ request.route_url('drop_course', id=course.course.id) }}">
+		    						حذف
+		    					</a>
+		    				</td>
+		    				<td>{{ course.course.id }}</td>
+		    				<td>{{ course.course.name }}</td>
+		    				<td>{{ course.course.credits }}</td>
+		    				<td>
+		    					{{ course.course.teacher.user.firstname }} 
+		    					{{ course.course.teacher.user.lastname }}
+		    				</td>
+		    				<td>{{ course.course.exam_date.date() }}</td>
+		    			</tr>
+		    		{% endfor %}
+		    		<tr>
+		    			<td>تعداد واحدها</td>
+		    			<td>{{ credits }}</td>
+		    		</tr>
+				</tbody>
+			</table>
+	    </div>
+	</div>
+	<hr style="margin-bottom: 60px;">
+{% endif %}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+    	<h4>واحدهای مورد نظرتان را از منوی زیر انتخاب کنید</h4>
+    	<hr>
+		<table class="table">
+			<thead>
+				<tr class="right">
+					<th>#</th>
+					<th>کد درس</th>
+					<th>نام کتاب</th>
+					<th>تعداد واحد</th>
+					<th>حداکثر تعداد دانشجویان</th>
+					<th>تعداد فعلی دانشجویان</th>
+					<td>استاد</td>
+					<td>تاریخ امتحان</td>
+				</tr>
+			</thead>
+			<tbody>
+			    {% for course in available_courses %}
+	    			<tr>
+	    				<td>
+	    					<a class="btn btn-success btn-sm" href="{{ request.route_url('add_course', id=course.id) }}">
+	    						انتخاب
+	    					</a>
+	    				</td>
+	    				<td>{{ course.id }}</td>
+	    				<td>{{ course.name }}</td>
+	    				<td>{{ course.credits }}</td>
+	    				<td>{{ course.allowed_number_of_students }}</td>
+	    				<td>{{ course.signed_up_students }}</td>
+	    				<td>
+	    					{{ course.teacher.user.firstname }} 
+	    					{{ course.teacher.user.lastname }}
+	    				</td>
+	    				<td>{{ course.exam_date }}</td>
+	    			</tr>
+	    		{% endfor %}
+			</tbody>
+		</table>
+		<hr>
+    
+		<a class="btn btn-default" href="{{ request.route_url('home') }}">برگشت به خانه</a>
+    </div>
+
+</div>
+
+{% endblock %}
+

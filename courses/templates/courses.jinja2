@@ -1,0 +1,62 @@
+{% extends "layout.jinja2" %}
+
+{% block title %}واحدهای انتخاب شده{% endblock %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-md-12 col-sm-12">
+		{% if selected_courses %}
+	    	<h4>واحدهای انتخاب شده ترم تحصیلی جاری</h4>
+	    	<hr>
+			<table class="table" style="direction: rtl;">
+				<thead>
+					<tr class="right">
+						<th>کد درس</th>
+						<th>نام کتاب</th>
+						<th>تعداد واحد</th>
+						<td>استاد</td>
+						<td>تاریخ امتحان</td>
+					</tr>
+				</thead>
+				<tbody>
+				    {% for course in selected_courses %}
+		    			<tr>
+		    				<td>{{ course.course.id }}</td>
+		    				<td>{{ course.course.name }}</td>
+		    				<td>{{ course.course.credits }}</td>
+		    				<td>
+		    					{{ course.course.teacher.user.firstname }}
+		    					{{ course.course.teacher.user.lastname }}
+		    				</td>
+		    				<td>{{ course.course.exam_date.date() }}</td>
+		    			</tr>
+		    		{% endfor %}
+		    		<tr>
+		    			<td>تعداد واحدهای انتخاب شده: </td>
+		    			<td>{{ credits }}</td>
+		    		</tr>
+				</tbody>
+			</table>
+			<hr>
+			
+			<a class="btn btn-info" href="{{ request.route_url('select_courses') }}">
+				ویرایش
+			</a>
+			
+			<a class="btn btn-default" href="{{ request.route_url('home') }}">
+				برگشت به خانه
+			</a>
+		
+		{% else %}
+			<h3>شما هیچ واحدی انتخاب نکرده اید. از
+				<a href="{{ request.route_url('select_courses') }}">
+					اینجا
+				</a>
+				می توانید انتخاب واحد کنید.</h3>
+		{% endif %}
+	</div>
+</div>
+
+{% endblock %}
+

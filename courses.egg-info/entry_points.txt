@@ -1,0 +1,6 @@
+      [paste.app_factory]
+      main = courses:main
+      [console_scripts]
+      initialize_courses_db = courses.scripts.initializedb:main
+      populate_db = courses.scripts.populate_db:main
+      

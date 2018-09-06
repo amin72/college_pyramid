@@ -1,0 +1,29 @@
+{% extends "layout.jinja2" %}
+
+{% block title %}اطلاعات دانشجو{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+    {{ message }}
+{% endif %}
+<div class="row">
+    <div>
+    	<h4>اطلاعات دانشجو<h4>
+    	<a href="{{ request.route_url('home') }}">برگشت به خانه</a>
+
+    	<hr>
+			<ul class="student_info">
+				<li>نام : {{ student.user.firstname }}</li>
+		        <li>نام خاوادگی : {{ student.user.lastname }}</li>
+		        <li>رشته تحصیلی : {{ student.major.name }}</li>
+		        <li>شماره دانشجویی : {{ student.id }}</li>
+		        <li>کد ملی : {{ student.user.personal_code }}</li>
+		        <li>آدرس : {{ student.user.address }}</li>
+		        <li>تلفن : {{ student.user.phone }}</li>
+			</ul>
+
+			<a class="btn btn-info" href="{{ request.route_url('edit_student_information') }}">ویرایش</a>
+	</div>
+</div>
+{% endblock %}
